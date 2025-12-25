@@ -165,20 +165,30 @@ The goal is to keep learning simple, focused, and stress-free.
 
   </div>
 </section>
+  <!-- PYQP EXAM SELECTION -->
+<section id="pyqpExams" class="page">
+  <div class="card">
+    <h2 id="pyqpTitle">PYQP — Subject</h2>
+    <p>Select exam:</p>
+
+    <div class="grid">
+      <div class="btn">Mid 1</div>
+      <div class="btn">Mid 2</div>
+      <div class="btn">Semester</div>
+    </div>
+  </div>
+</section>
+
 
 <!-- PYQP -->
 <section id="pyqp" class="page">
-  <div class="card">
-    <h2>PYQP</h2>
-    <p>Select subject:</p>
-    <div class="grid">
-      <div class="btn" onclick="openUnit('PYQP','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('PYQP','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('PYQP','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('PYQP','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('PYQP','Web Technology')">Web Technology</div>
-    </div>
-  </div>
+  <div class="grid">
+  <div class="btn" onclick="openUnit('PYQP','Maths')">Maths</div>
+  <div class="btn" onclick="openUnit('PYQP','Physics')">Physics</div>
+  <div class="btn" onclick="openUnit('PYQP','Chemistry')">Chemistry</div>
+  <div class="btn" onclick="openUnit('PYQP','Programming in C')">Programming in C</div>
+  <div class="btn" onclick="openUnit('PYQP','Web Technology')">Web Technology</div>
+</div>
 </section>
 
 <!-- IMPORTANT -->
@@ -288,11 +298,24 @@ function showPage(id){
 }
 
 function openUnit(type,subject){
+
+  // PYQP → exams page
+  if(type === "PYQP"){
+    document.getElementById("pyqpTitle").innerText =
+      "PYQP — " + subject;
+
+    showPage("pyqpExams");
+    return;
+  }
+
+  // Other sections → unit page
   document.getElementById("unitTitle").innerText =
-    `${type} — ${subject}`;
+    type + " — " + subject;
+
   showPage("unitPage");
 }
 </script>
 
 </body>
 </html>
+
