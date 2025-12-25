@@ -8,7 +8,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif;}
 
-body{
+html,body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
   background:linear-gradient(180deg,#020617,#07112a);
   color:#e5e7eb;
   overflow-x:hidden;
@@ -26,21 +29,8 @@ body{
   top:0;
   z-index:20;
 }
-
-.logo{
-  color:#38bdf8;
-  font-weight:bold;
-  font-size:18px;
-  letter-spacing:.4px;
-}
-
-.menu-btn{
-  background:none;
-  border:none;
-  color:white;
-  font-size:28px;
-  cursor:pointer;
-}
+.logo{color:#38bdf8;font-weight:bold;font-size:18px;}
+.menu-btn{background:none;border:none;color:white;font-size:28px;cursor:pointer}
 
 /* SLIDE MENU */
 .menu{
@@ -49,7 +39,6 @@ body{
   gap:10px;
   padding:12px 18px;
   background:#0f172a;
-  animation:slideDown .28s ease-out;
 }
 .menu a{
   text-decoration:none;
@@ -57,27 +46,31 @@ body{
   padding:11px;
   border-radius:12px;
   background:#111c34;
-  box-shadow:0 4px 15px rgba(0,0,0,.45);
-  transition:.25s;
-}
-.menu a:hover{background:#1c2c55;}
-
-@keyframes slideDown{
-  from{opacity:0;transform:translateY(-10px);}
-  to{opacity:1;transform:translateY(0);}
 }
 
-/* CONTENT */
-main{padding:18px;}
-.page{display:none;opacity:0;transform:translateY(10px);}
+/* MAIN LAYOUT (push footer down if short) */
+main{
+  flex:1 0 auto;
+  padding:18px;
+}
 
-.page.active{
+/* PAGE TRANSITIONS */
+.page{display:none;opacity:0;transform:translateX(25px);}
+.page.show{
   display:block !important;
-  animation:fadeIn .35s forwards ease-out;
+  animation:pageIn .35s forwards ease-out;
+}
+.page.hide{
+  animation:pageOut .28s forwards ease-in;
 }
 
-@keyframes fadeIn{
-  to{opacity:1;transform:translateY(0);}
+@keyframes pageIn{
+  from{opacity:0;transform:translateX(25px);}
+  to{opacity:1;transform:translateX(0);}
+}
+@keyframes pageOut{
+  from{opacity:1;transform:translateX(0);}
+  to{opacity:0;transform:translateX(-25px);}
 }
 
 /* CARD */
@@ -86,14 +79,18 @@ main{padding:18px;}
   border:1px solid #1f2d4d;
   padding:16px;
   border-radius:18px;
-  margin-top:14px;
   box-shadow:0 14px 30px rgba(0,0,0,.55);
-  animation:pop .35s ease;
+  margin-top:14px;
 }
 
-@keyframes pop{
-  from{opacity:0;transform:scale(.96);}
-  to{opacity:1;transform:scale(1);}
+/* HOME — make it look “full” */
+#home{
+  min-height:60vh;
+  display:flex;
+  align-items:center;
+}
+#home .card{
+  width:100%;
 }
 
 /* GRID */
@@ -112,35 +109,18 @@ main{padding:18px;}
   text-align:center;
   cursor:pointer;
   box-shadow:0 10px 25px rgba(0,0,0,.55);
-  transition:.18s ease;
-  position:relative;
-  overflow:hidden;
+  transition:.18s;
 }
+.btn:hover{transform:translateY(-3px);}
 
-.btn::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(120px 60px at var(--x,50%) var(--y,50%),rgba(255,255,255,.15),transparent);
-  opacity:0;
-  transition:.2s;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 16px 32px rgba(0,0,0,.65);
-}
-
-.btn:hover::after{opacity:1;}
-
+/* FOOTER always stays at bottom nicely */
 footer{
+  flex-shrink:0;
   text-align:center;
   padding:22px;
   color:#9ca3af;
-  margin-top:48px;
   font-size:13px;
 }
-
 </style>
 </head>
 
@@ -163,25 +143,26 @@ footer{
 <main>
 
 <!-- HOME -->
-<section id="home" class="active">
+<section id="home" class="page show">
   <div class="card">
-    <h1>Diploma CSE Study Portal</h1>
-    <p style="margin-top:10px;">
-       A simple, exam-focused platform for Diploma CSE students.
-    </p>
-    <p>
-                This website is designed to help students prepare effectively for
-                Mid exams and Semester exams.
-				</p>
+   <h1>Diploma CSE Study Portal</h1>
 
-            <p>
-                Content is organized subject-wise and unit-wise to save time and
-                reduce confusion during exam preparation.
-            </p>
+<p style="margin-top:10px;">
+A simple, exam-focused platform for Diploma CSE students.
+</p>
 
-            <p>
-                The goal is to keep learning simple, focused, and stress-free.
-            </p>
+<p style="margin-top:10px;">
+This website is designed to help students prepare effectively for Mid exams and Semester exams.
+</p>
+
+<p style="margin-top:10px;">
+Content is organized subject-wise and unit-wise to save time and reduce confusion during exam preparation.
+</p>
+
+<p style="margin-top:10px;">
+The goal is to keep learning simple, focused, and stress-free.
+</p>
+
   </div>
 </section>
 
@@ -190,13 +171,12 @@ footer{
   <div class="card">
     <h2>PYQP</h2>
     <p>Select subject:</p>
-
     <div class="grid">
-      <div class="btn" onclick="openUnit('pyqp','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('pyqp','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('pyqp','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('pyqp','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('pyqp','Web Technology')">Web Technology</div>
+      <div class="btn" onclick="openUnit('PYQP','Maths')">Maths</div>
+      <div class="btn" onclick="openUnit('PYQP','Physics')">Physics</div>
+      <div class="btn" onclick="openUnit('PYQP','Chemistry')">Chemistry</div>
+      <div class="btn" onclick="openUnit('PYQP','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('PYQP','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
@@ -206,13 +186,12 @@ footer{
   <div class="card">
     <h2>Important Questions</h2>
     <p>Choose subject:</p>
-
     <div class="grid">
-      <div class="btn" onclick="openUnit('important','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('important','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('important','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('important','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('important','Web Technology')">Web Technology</div>
+      <div class="btn" onclick="openUnit('Important Questions','Maths')">Maths</div>
+      <div class="btn" onclick="openUnit('Important Questions','Physics')">Physics</div>
+      <div class="btn" onclick="openUnit('Important Questions','Chemistry')">Chemistry</div>
+      <div class="btn" onclick="openUnit('Important Questions','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('Important Questions','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
@@ -222,13 +201,12 @@ footer{
   <div class="card">
     <h2>Materials</h2>
     <p>Subject list:</p>
-
     <div class="grid">
-      <div class="btn" onclick="openUnit('materials','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('materials','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('materials','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('materials','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('materials','Web Technology')">Web Technology</div>
+      <div class="btn" onclick="openUnit('Materials','Maths')">Maths</div>
+      <div class="btn" onclick="openUnit('Materials','Physics')">Physics</div>
+      <div class="btn" onclick="openUnit('Materials','Chemistry')">Chemistry</div>
+      <div class="btn" onclick="openUnit('Materials','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('Materials','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
@@ -238,11 +216,10 @@ footer{
   <div class="card">
     <h2>Formulas</h2>
     <p>Quick revision:</p>
-
     <div class="grid">
-      <div class="btn" onclick="openUnit('formulas','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('formulas','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('formulas','Chemistry')">Chemistry</div>
+      <div class="btn" onclick="openUnit('Formulas','Maths')">Maths</div>
+      <div class="btn" onclick="openUnit('Formulas','Physics')">Physics</div>
+      <div class="btn" onclick="openUnit('Formulas','Chemistry')">Chemistry</div>
     </div>
   </div>
 </section>
@@ -252,13 +229,12 @@ footer{
   <div class="card">
     <h2>Quiz</h2>
     <p>Unit-wise practice:</p>
-
     <div class="grid">
-      <div class="btn" onclick="openUnit('quiz','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('quiz','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('quiz','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('quiz','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('quiz','Web Technology')">Web Technology</div>
+      <div class="btn" onclick="openUnit('Quiz','Maths')">Maths</div>
+      <div class="btn" onclick="openUnit('Quiz','Physics')">Physics</div>
+      <div class="btn" onclick="openUnit('Quiz','Chemistry')">Chemistry</div>
+      <div class="btn" onclick="openUnit('Quiz','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('Quiz','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
@@ -290,44 +266,33 @@ function toggleMenu(){
   m.style.display=(m.style.display==="flex")?"none":"flex";
 }
 
+let current="home";
+
 function showPage(id){
-  document.querySelectorAll("main section").forEach(s=>{
-    s.classList.remove("active");
-    s.style.display="none";
-  });
+  if(id===current) return;
 
-  const t=document.getElementById(id);
-  t.style.display="block";
-  t.classList.add("active");
+  const prev=document.getElementById(current);
+  const next=document.getElementById(id);
 
+  prev.classList.remove("show");
+  prev.classList.add("hide");
+
+  setTimeout(()=>{prev.style.display="none";},260);
+
+  next.style.display="block";
+  next.classList.remove("hide");
+  next.classList.add("show");
+
+  current=id;
   toggleMenu();
 }
 
 function openUnit(type,subject){
-  const titles={
-    pyqp:"PYQP",
-    important:"Important Questions",
-    materials:"Materials",
-    formulas:"Formulas",
-    quiz:"Quiz"
-  };
-
   document.getElementById("unitTitle").innerText =
-    `${titles[type]} — ${subject}`;
-
+    `${type} — ${subject}`;
   showPage("unitPage");
 }
-
-/* glow tracking effect on buttons */
-document.addEventListener("mousemove",e=>{
-  document.querySelectorAll(".btn").forEach(btn=>{
-    const r=btn.getBoundingClientRect();
-    btn.style.setProperty("--x",`${e.clientX-r.left}px`);
-    btn.style.setProperty("--y",`${e.clientY-r.top}px`);
-  });
-});
 </script>
 
 </body>
 </html>
-
