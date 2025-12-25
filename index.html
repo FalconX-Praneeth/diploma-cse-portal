@@ -6,12 +6,12 @@
 <title>Diploma CSE Portal</title>
 
 <style>
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif;}
 
 body{
-  background:linear-gradient(180deg,#020617,#0b1229);
+  background:linear-gradient(180deg,#020617,#07112a);
   color:#e5e7eb;
+  overflow-x:hidden;
 }
 
 /* NAVBAR */
@@ -21,17 +21,17 @@ body{
   align-items:center;
   padding:12px 18px;
   background:#0f172a;
-  box-shadow:0 5px 20px rgba(0,0,0,.4);
+  box-shadow:0 6px 25px rgba(0,0,0,.45);
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:20;
 }
 
 .logo{
   color:#38bdf8;
   font-weight:bold;
   font-size:18px;
-  letter-spacing:0.5px;
+  letter-spacing:.4px;
 }
 
 .menu-btn{
@@ -42,41 +42,61 @@ body{
   cursor:pointer;
 }
 
-/* MENU */
+/* SLIDE MENU */
 .menu{
   display:none;
   flex-direction:column;
   gap:10px;
-  padding:10px 18px;
+  padding:12px 18px;
   background:#0f172a;
-  animation:fade .25s ease;
+  animation:slideDown .28s ease-out;
 }
 .menu a{
   text-decoration:none;
   color:white;
-  padding:10px;
+  padding:11px;
   border-radius:12px;
-  background:#111827;
-  box-shadow:0 4px 12px rgba(0,0,0,.4);
-  transition:.2s;
+  background:#111c34;
+  box-shadow:0 4px 15px rgba(0,0,0,.45);
+  transition:.25s;
 }
-.menu a:hover{background:#1f2d4a;}
+.menu a:hover{background:#1c2c55;}
 
-@keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideDown{
+  from{opacity:0;transform:translateY(-10px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
 /* CONTENT */
 main{padding:18px;}
-.page{display:none;}
+.page{display:none;opacity:0;transform:translateY(10px);}
 
+.page.active{
+  display:block !important;
+  animation:fadeIn .35s forwards ease-out;
+}
+
+@keyframes fadeIn{
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* CARD */
 .card{
-  background:linear-gradient(160deg,#0a1222,#0f1c38);
-  border:1px solid #1e2a47;
+  background:linear-gradient(150deg,#0a1222,#12204a);
+  border:1px solid #1f2d4d;
   padding:16px;
   border-radius:18px;
   margin-top:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,.45);
+  box-shadow:0 14px 30px rgba(0,0,0,.55);
+  animation:pop .35s ease;
 }
 
+@keyframes pop{
+  from{opacity:0;transform:scale(.96);}
+  to{opacity:1;transform:scale(1);}
+}
+
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
@@ -84,25 +104,41 @@ main{padding:18px;}
   margin-top:14px;
 }
 
+/* BUTTONS */
 .btn{
-  background:linear-gradient(145deg,#1f2d46,#2b3d63);
+  background:linear-gradient(145deg,#1e2c56,#2d4fa0);
   padding:12px;
   border-radius:14px;
   text-align:center;
   cursor:pointer;
-  box-shadow:0 6px 15px rgba(0,0,0,.5);
+  box-shadow:0 10px 25px rgba(0,0,0,.55);
   transition:.18s ease;
+  position:relative;
+  overflow:hidden;
 }
+
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(120px 60px at var(--x,50%) var(--y,50%),rgba(255,255,255,.15),transparent);
+  opacity:0;
+  transition:.2s;
+}
+
 .btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 24px rgba(0,0,0,.6);
+  transform:translateY(-3px);
+  box-shadow:0 16px 32px rgba(0,0,0,.65);
 }
+
+.btn:hover::after{opacity:1;}
 
 footer{
   text-align:center;
-  padding:20px;
+  padding:22px;
   color:#9ca3af;
-  margin-top:45px;
+  margin-top:48px;
+  font-size:13px;
 }
 
 </style>
@@ -126,61 +162,70 @@ footer{
 
 <main>
 
-<section id="home">
+<!-- HOME -->
+<section id="home" class="active">
   <div class="card">
     <h1>Welcome 👋</h1>
     <p style="margin-top:10px;">
-      All your Diploma CSE resources — organized, fast and mobile-first.
+      All your Diploma CSE resources — organized, fast, and mobile-first.
     </p>
   </div>
 </section>
 
+<!-- PYQP -->
 <section id="pyqp" class="page">
   <div class="card">
     <h2>PYQP</h2>
     <p>Select subject:</p>
+
     <div class="grid">
       <div class="btn" onclick="openUnit('pyqp','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('pyqp','Physics')">Physics</div>
       <div class="btn" onclick="openUnit('pyqp','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('pyqp','Programming in C')">Programming C</div>
-      <div class="btn" onclick="openUnit('pyqp','Web Technology')">Web Tech</div>
+      <div class="btn" onclick="openUnit('pyqp','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('pyqp','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
 
+<!-- IMPORTANT -->
 <section id="important" class="page">
   <div class="card">
     <h2>Important Questions</h2>
     <p>Choose subject:</p>
+
     <div class="grid">
       <div class="btn" onclick="openUnit('important','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('important','Physics')">Physics</div>
       <div class="btn" onclick="openUnit('important','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('important','Programming in C')">Programming C</div>
-      <div class="btn" onclick="openUnit('important','Web Technology')">Web Tech</div>
+      <div class="btn" onclick="openUnit('important','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('important','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
 
+<!-- MATERIALS -->
 <section id="materials" class="page">
   <div class="card">
     <h2>Materials</h2>
     <p>Subject list:</p>
+
     <div class="grid">
       <div class="btn" onclick="openUnit('materials','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('materials','Physics')">Physics</div>
       <div class="btn" onclick="openUnit('materials','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('materials','Programming in C')">Programming C</div>
-      <div class="btn" onclick="openUnit('materials','Web Technology')">Web Tech</div>
+      <div class="btn" onclick="openUnit('materials','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('materials','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
 
+<!-- FORMULAS -->
 <section id="formulas" class="page">
   <div class="card">
     <h2>Formulas</h2>
     <p>Quick revision:</p>
+
     <div class="grid">
       <div class="btn" onclick="openUnit('formulas','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('formulas','Physics')">Physics</div>
@@ -189,24 +234,28 @@ footer{
   </div>
 </section>
 
+<!-- QUIZ -->
 <section id="quiz" class="page">
   <div class="card">
     <h2>Quiz</h2>
     <p>Unit-wise practice:</p>
+
     <div class="grid">
       <div class="btn" onclick="openUnit('quiz','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('quiz','Physics')">Physics</div>
       <div class="btn" onclick="openUnit('quiz','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('quiz','Programming in C')">Programming C</div>
-      <div class="btn" onclick="openUnit('quiz','Web Technology')">Web Tech</div>
+      <div class="btn" onclick="openUnit('quiz','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('quiz','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
 
+<!-- UNIT PAGE -->
 <section id="unitPage" class="page">
   <div class="card">
     <h2 id="unitTitle">Unit Selection</h2>
     <p>Select unit:</p>
+
     <div class="grid">
       <div class="btn">Unit 1</div>
       <div class="btn">Unit 2</div>
@@ -227,16 +276,43 @@ function toggleMenu(){
   const m=document.getElementById("mobileMenu");
   m.style.display=(m.style.display==="flex")?"none":"flex";
 }
+
 function showPage(id){
-  document.querySelectorAll("main section").forEach(s=>s.style.display="none");
-  document.getElementById(id).style.display="block";
+  document.querySelectorAll("main section").forEach(s=>{
+    s.classList.remove("active");
+    s.style.display="none";
+  });
+
+  const t=document.getElementById(id);
+  t.style.display="block";
+  t.classList.add("active");
+
   toggleMenu();
 }
+
 function openUnit(type,subject){
-  const titles={pyqp:"PYQP",important:"Important Questions",materials:"Materials",formulas:"Formulas",quiz:"Quiz"};
-  document.getElementById("unitTitle").innerText=titles[type]+" — "+subject;
+  const titles={
+    pyqp:"PYQP",
+    important:"Important Questions",
+    materials:"Materials",
+    formulas:"Formulas",
+    quiz:"Quiz"
+  };
+
+  document.getElementById("unitTitle").innerText =
+    `${titles[type]} — ${subject}`;
+
   showPage("unitPage");
 }
+
+/* glow tracking effect on buttons */
+document.addEventListener("mousemove",e=>{
+  document.querySelectorAll(".btn").forEach(btn=>{
+    const r=btn.getBoundingClientRect();
+    btn.style.setProperty("--x",`${e.clientX-r.left}px`);
+    btn.style.setProperty("--y",`${e.clientY-r.top}px`);
+  });
+});
 </script>
 
 </body>
