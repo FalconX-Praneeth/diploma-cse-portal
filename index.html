@@ -49,16 +49,12 @@ html,body{
 }
 
 /* MAIN */
-main{
-  flex:1 0 auto;
-  padding:18px;
-}
+main{flex:1 0 auto;padding:18px;}
 
 /* PAGE TRANSITIONS */
 .page{display:none;opacity:0;transform:translateX(25px);}
 .page.show{display:block !important;animation:pageIn .35s forwards ease-out;}
 .page.hide{animation:pageOut .28s forwards ease-in;}
-
 @keyframes pageIn{from{opacity:0;transform:translateX(25px);}to{opacity:1;transform:translateX(0);}}
 @keyframes pageOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-25px);}}
 
@@ -116,7 +112,7 @@ footer{
 
 <nav id="mobileMenu" class="menu">
   <a onclick="showPage('home')">Home</a>
-  <a onclick="showPage('pyqp')">Previous Year Question Papers</a>
+  <a onclick="showPage('pyqpSubjects')">Previous Year Question Papers</a>
   <a onclick="showPage('important')">Important Questions</a>
   <a onclick="showPage('materials')">Materials</a>
   <a onclick="showPage('formulas')">Formulas</a>
@@ -137,8 +133,8 @@ footer{
   </div>
 </section>
 
-<!-- PYQP (SUBJECTS) -->
-<section id="pyqp" class="page">
+<!-- PYQP — SUBJECTS -->
+<section id="pyqpSubjects" class="page">
   <div class="card">
     <h2>Previous Year Question Papers</h2>
     <p>Select a subject:</p>
@@ -153,7 +149,7 @@ footer{
   </div>
 </section>
 
-<!-- PYQP — EXAM SELECTION -->
+<!-- PYQP — EXAMS -->
 <section id="pyqpExams" class="page">
   <div class="card">
     <h2 id="pyqpTitle">Previous Year Question Papers</h2>
@@ -251,13 +247,16 @@ footer{
 </main>
 
 <script>
-// simple store (we'll fill later)
 const papers = {
-  "Maths": { mid1:"pdfs/maths-mid1.pdf", mid2:"pdfs/maths-mid2.pdf", sem:"pdfs/maths-sem.pdf" }
+  "Maths": {
+    mid1:"pdfs/maths-mid1.pdf",
+    mid2:"pdfs/maths-mid2.pdf",
+    sem:"pdfs/maths-sem.pdf"
+  }
 };
 
-let current = "home";
-let currentSubject = "";
+let current="home";
+let currentSubject="";
 
 function toggleMenu(){
   const m=document.getElementById("mobileMenu");
@@ -270,9 +269,9 @@ function showPage(id){
   const prev=document.getElementById(current);
   const next=document.getElementById(id);
 
-  prev.classList.remove("show");
-  prev.classList.add("hide");
-  setTimeout(()=>{prev.style.display="none";},260);
+  prev?.classList.remove("show");
+  prev?.classList.add("hide");
+  setTimeout(()=>{if(prev) prev.style.display="none";},260);
 
   next.style.display="block";
   next.classList.remove("hide");
@@ -284,7 +283,6 @@ function showPage(id){
 
 function openUnit(type,subject){
 
-  // PYQP → exam selection
   if(type==="PYQP"){
     currentSubject = subject;
     document.getElementById("pyqpTitle").innerText =
@@ -294,7 +292,6 @@ function openUnit(type,subject){
     return;
   }
 
-  // others → unit page
   document.getElementById("unitTitle").innerText =
     type + " — " + subject;
 
@@ -304,7 +301,6 @@ function openUnit(type,subject){
 function openPaper(kind){
   const data = papers[currentSubject];
   if(!data) return;
-
   window.open(data[kind],"_blank");
 }
 </script>
