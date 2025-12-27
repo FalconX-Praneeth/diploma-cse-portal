@@ -113,24 +113,16 @@ footer{
   position:absolute;
   left:0;
 }
-<button onclick="history.back()" class="backBtn">
-  ← Back
-</button>
 
-<style>
-.backBtn{
-  background:#4a6cff;
-  color:white;
-  padding:8px 16px;
+.back-btn{
+  background:#1f2b48;
+  color:#e5e7eb;
   border:none;
+  padding:8px 14px;
   border-radius:10px;
-  font-size:15px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.45);
 }
-.backBtn:hover{
-  opacity:0.9;
-}
-</style>
-
 
 </style>
 </head>
@@ -274,22 +266,22 @@ footer{
   </div>
 </section>
 <!-- PDF VIEWER -->
-  <section id="pdfViewer" class="page">
+<section id="pdfViewer" class="page">
   <div class="card">
-    <button onclick="showPage('pyqpExams')" class="btn" style="margin-bottom:10px">
-      ← Back
-    </button>
 
-    <h2 id="pdfTitle">Document Viewer</h2>
+    <div class="viewer-top">
+      <button class="back-btn" onclick="showPage(currentSubjectPage)">← Back</button>
+      <h2 id="pdfTitle" class="viewer-title">PDF Viewer</h2>
+    </div>
 
-    <iframe 
-  src="https://docs.google.com/gview?embedded=1&url=https://nx-praneeth.github.io/pdfs/physics-mid2.pdf" 
-  style="width:100%; height:90vh;" 
-  frameborder="0">
-</iframe>
+    <iframe id="pdfFrame"
+      style="width:100%;height:70vh;border-radius:14px;border:none;">
+    </iframe>
 
   </div>
 </section>
+
+
 
 <footer>© 2025 Diploma CSE Portal</footer>
 
@@ -384,15 +376,19 @@ let currentSubjectPage = "pyqpExams";
 
 function openPaper(kind){
   const data = papers[currentSubject];
-  if(!data) return;
+  if(!data || !data[kind]){
+    alert("PDF not uploaded yet.");
+    return;
+  }
 
-  const viewer = document.getElementById("pdfViewer");
-  const frame  = document.getElementById("pdfFrame");
+  document.getElementById("pdfTitle").innerText =
+    currentSubject + " — " + kind.toUpperCase();
 
-  frame.src = data[kind] + "#toolbar=1";
+  document.getElementById("pdfFrame").src = data[kind];
+
+  currentSubjectPage = "pyqpExams";
   showPage("pdfViewer");
 }
-    
 // SECRET VIEW COUNTER (ADMIN ONLY)
 window.addEventListener("keydown", function(e){
   if(e.key.toLowerCase() === "v"){   // press v
@@ -410,7 +406,4 @@ window.addEventListener("keydown", function(e){
 
 </body>
 </html>
-
-
-
 
