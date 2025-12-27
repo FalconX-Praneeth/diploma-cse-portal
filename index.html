@@ -32,6 +32,7 @@ html,body{
 .logo{color:#38bdf8;font-weight:bold;font-size:18px;}
 .menu-btn{background:none;border:none;color:white;font-size:28px;cursor:pointer}
 
+/* MENU */
 .menu{
   display:none;
   flex-direction:column;
@@ -47,14 +48,17 @@ html,body{
   background:#111c34;
 }
 
+/* MAIN */
 main{flex:1 0 auto;padding:18px;}
 
+/* ANIMATIONS */
 .page{display:none;opacity:0;transform:translateX(25px);}
 .page.show{display:block !important;animation:pageIn .35s forwards ease-out;}
 .page.hide{animation:pageOut .28s forwards ease-in;}
 @keyframes pageIn{from{opacity:0;transform:translateX(25px);}to{opacity:1;transform:translateX(0);}}
 @keyframes pageOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-25px);}}
 
+/* CARD */
 .card{
   background:linear-gradient(150deg,#0a1222,#12204a);
   border:1px solid #1f2d4d;
@@ -64,9 +68,7 @@ main{flex:1 0 auto;padding:18px;}
   margin-top:14px;
 }
 
-#home{min-height:60vh;display:flex;align-items:center;}
-#home .card{width:100%;}
-
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
@@ -74,6 +76,7 @@ main{flex:1 0 auto;padding:18px;}
   margin-top:14px;
 }
 
+/* BUTTONS */
 .btn{
   background:linear-gradient(145deg,#1e2c56,#2d4fa0);
   padding:12px;
@@ -85,6 +88,22 @@ main{flex:1 0 auto;padding:18px;}
 }
 .btn:hover{transform:translateY(-3px);}
 
+/* BACK BUTTON */
+.backBtn{
+  background:#22c55e;
+  color:#022c22;
+  padding:10px 16px;
+  border:none;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+  margin-bottom:10px;
+}
+.backBtn:hover{transform:translateY(-2px);opacity:.9;}
+
+/* FEEDBACK BUTTON */
 .primary{
   margin-top:14px;
   background:#4f8cff;
@@ -98,6 +117,7 @@ main{flex:1 0 auto;padding:18px;}
 }
 .primary:hover{opacity:0.9;transform:translateY(-2px);}
 
+/* FOOTER */
 footer{
   flex-shrink:0;
   text-align:center;
@@ -130,21 +150,19 @@ footer{
 <section id="home" class="page show">
   <div class="card">
    <h1>Diploma CSE Study Portal</h1>
+   <p style="margin-top:10px;">A simple, exam-focused platform for Diploma CSE students.</p>
+   <p style="margin-top:10px;">Helps prepare for Mid & Semester exams.</p>
+   <p style="margin-top:10px;">Organized subject-wise and unit-wise.</p>
+   <p style="margin-top:10px;">Goal: simple, focused, stress-free learning.</p>
 
-<p style="margin-top:10px;">A simple, exam-focused platform for Diploma CSE students.</p>
-<p style="margin-top:10px;">Helps prepare effectively for Mid exams and Semester exams.</p>
-<p style="margin-top:10px;">All content is organized subject-wise and unit-wise.</p>
-<p style="margin-top:10px;">Goal: simple, focused and stress-free learning.</p>
-
-<button class="primary" 
-onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScD-LCTUAytYHzuk0n2USL-IdwqjRDIodbGB6KgIkNUWlRAww/viewform?usp=dialog','_blank')">
-Report a Problem / Suggest Feature
-</button>
-
+   <button class="primary"
+     onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScD-LCTUAytYHzuk0n2USL-IdwqjRDIodbGB6KgIkNUWlRAww/viewform?usp=dialog','_blank')">
+     Report a Problem / Suggest Feature
+   </button>
   </div>
 </section>
 
-<!-- PYQP main -->
+<!-- PYQP -->
 <section id="pyqp" class="page">
   <div class="card">
     <h2>Previous Year Question Papers</h2>
@@ -169,7 +187,7 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- Important / Materials / Formulas / Quiz share same unit viewer -->
+<!-- IMPORTANT -->
 <section id="important" class="page">
   <div class="card">
     <h2>Important Questions</h2>
@@ -183,6 +201,7 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
+<!-- MATERIALS -->
 <section id="materials" class="page">
   <div class="card">
     <h2>Materials</h2>
@@ -196,6 +215,7 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
+<!-- FORMULAS -->
 <section id="formulas" class="page">
   <div class="card">
     <h2>Formulas</h2>
@@ -207,14 +227,15 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
+<!-- QUIZ -->
 <section id="quiz" class="page">
   <div class="card">
     <h2>Quiz</h2>
-    <p>Coming soon — unit-wise practice quizzes.</p>
+    <p>Unit-wise practice coming soon.</p>
   </div>
 </section>
 
-<!-- Unit selector -->
+<!-- UNIT SELECTOR -->
 <section id="unitPage" class="page">
   <div class="card">
     <h2 id="unitTitle">Select Unit</h2>
@@ -228,13 +249,13 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- UNIVERSAL PDF VIEWER -->
+<!-- PDF VIEWER -->
 <section id="pdfViewer" class="page">
   <div class="card">
-    <button class="btn" onclick="history.back()">← Back</button>
-    <h3 id="pdfTitle" style="margin-top:10px;"></h3>
+    <button class="backBtn" onclick="goBack()">← Back</button>
+    <h3 id="pdfTitle"></h3>
     <iframe id="pdfFrame"
-      style="width:100%;height:78vh;margin-top:10px;border-radius:14px;border:none;"></iframe>
+      style="width:100%;height:78vh;margin-top:12px;border-radius:14px;border:none;"></iframe>
   </div>
 </section>
 
@@ -253,7 +274,10 @@ const papers = {
 
 let current="home", currentSubject="", currentType="";
 
-function toggleMenu(){ const m=document.getElementById("mobileMenu"); m.style.display=(m.style.display==="flex")?"none":"flex"; }
+function toggleMenu(){
+  const m=document.getElementById("mobileMenu");
+  m.style.display=(m.style.display==="flex")?"none":"flex";
+}
 
 function showPage(id){
   if(id===current) return;
@@ -298,6 +322,14 @@ function openUnitPdf(unit){
   document.getElementById("pdfTitle").innerText =
     currentType + " — " + currentSubject + " (Unit " + unit + ")";
   showPage("pdfViewer");
+}
+
+function goBack(){
+  if(currentType === "PYQP"){
+    showPage("pyqpExams");
+  } else {
+    showPage("unitPage");
+  }
 }
 </script>
 
