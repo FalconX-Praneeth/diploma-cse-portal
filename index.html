@@ -100,6 +100,30 @@ footer{
   color:#9ca3af;
   font-size:13px;
 }
+.viewer-top{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:12px;
+  position:relative;
+}
+
+.back-btn{	
+  position:absolute;
+  left:0;
+}
+
+.back-btn{
+  background:#1f2b48;
+  color:#e5e7eb;
+  border:none;
+  padding:8px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.45);
+}
+
 </style>
 </head>
 
@@ -241,19 +265,63 @@ footer{
     </div>
   </div>
 </section>
+<!-- PDF VIEWER -->
+<section id="pdfViewer" class="page">
+  <div class="card">
+
+    <div class="viewer-top">
+      <button class="back-btn" onclick="showPage(currentSubjectPage)">← Back</button>
+      <h2 id="pdfTitle" class="viewer-title">PDF Viewer</h2>
+    </div>
+
+    <iframe id="pdfFrame"
+      style="width:100%;height:70vh;border-radius:14px;border:none;">
+    </iframe>
+
+  </div>
+</section>
+
+
 
 <footer>© 2025 Diploma CSE Portal</footer>
 
 </main>
 
 <script>
+
 const papers = {
+
   "Maths": {
     mid1:"pdfs/maths-mid1.pdf",
     mid2:"pdfs/maths-mid2.pdf",
-    sem:"pdfs/maths-sem.pdf"
+    sem :"pdfs/maths-sem.pdf"
+  },
+
+  "Physics": {
+    mid1:"pdfs/physics-mid1.pdf",
+    mid2:"pdfs/physics-mid2.pdf",
+    sem :"pdfs/physics-sem.pdf"
+  },
+
+  "Chemistry": {
+    mid1:"pdfs/chemistry-mid1.pdf",
+    mid2:"pdfs/chemistry-mid2.pdf",
+    sem :"pdfs/chemistry-sem.pdf"
+  },
+
+  "Programming in C": {
+    mid1:"pdfs/c-mid1.pdf",
+    mid2:"pdfs/c-mid2.pdf",
+    sem :"pdfs/c-sem.pdf"
+  },
+
+  "Web Technology": {
+    mid1:"pdfs/wt-mid1.pdf",
+    mid2:"pdfs/wt-mid2.pdf",
+    sem :"pdfs/wt-sem.pdf"
   }
 };
+
 
 let current="home";
 let currentSubject="";
@@ -281,10 +349,14 @@ function showPage(id){
   toggleMenu();
 }
 
+
+/* ---------- SUBJECT SELECT ---------- */
 function openUnit(type,subject){
 
+  // PYQP goes to exam list (Mid1/Mid2/Sem)
   if(type==="PYQP"){
     currentSubject = subject;
+
     document.getElementById("pyqpTitle").innerText =
       "Previous Year Question Papers — " + subject;
 
@@ -292,18 +364,46 @@ function openUnit(type,subject){
     return;
   }
 
+  // other sections → unit selection page
   document.getElementById("unitTitle").innerText =
     type + " — " + subject;
 
   showPage("unitPage");
 }
 
+
+let currentSubjectPage = "pyqpExams";
+
 function openPaper(kind){
   const data = papers[currentSubject];
-  if(!data) return;
-  window.open(data[kind],"_blank");
+  if(!data || !data[kind]){
+    alert("PDF not uploaded yet.");
+    return;
+  }
+
+  document.getElementById("pdfTitle").innerText =
+    currentSubject + " — " + kind.toUpperCase();
+
+  document.getElementById("pdfFrame").src = data[kind];
+
+  currentSubjectPage = "pyqpExams";
+  showPage("pdfViewer");
 }
+// SECRET VIEW COUNTER (ADMIN ONLY)
+window.addEventListener("keydown", function(e){
+  if(e.key.toLowerCase() === "v"){   // press v
+    fetch("https://api.countapi.xyz/get/diploma-cse-portal/views")
+      .then(res => res.json())
+      .then(data => {
+        alert("Total Visits: " + data.value);
+      })
+      .catch(() => alert("View counter error"));
+  }
+});
+
 </script>
+
 
 </body>
 </html>
+
