@@ -32,7 +32,6 @@ html,body{
 .logo{color:#38bdf8;font-weight:bold;font-size:18px;}
 .menu-btn{background:none;border:none;color:white;font-size:28px;cursor:pointer}
 
-/* SLIDE MENU */
 .menu{
   display:none;
   flex-direction:column;
@@ -48,21 +47,14 @@ html,body{
   background:#111c34;
 }
 
-/* MAIN */
-main{
-  flex:1 0 auto;
-  padding:18px;
-}
+main{flex:1 0 auto;padding:18px;}
 
-/* PAGE TRANSITIONS */
 .page{display:none;opacity:0;transform:translateX(25px);}
 .page.show{display:block !important;animation:pageIn .35s forwards ease-out;}
 .page.hide{animation:pageOut .28s forwards ease-in;}
-
 @keyframes pageIn{from{opacity:0;transform:translateX(25px);}to{opacity:1;transform:translateX(0);}}
 @keyframes pageOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-25px);}}
 
-/* CARD */
 .card{
   background:linear-gradient(150deg,#0a1222,#12204a);
   border:1px solid #1f2d4d;
@@ -72,11 +64,9 @@ main{
   margin-top:14px;
 }
 
-/* HOME SIZE */
 #home{min-height:60vh;display:flex;align-items:center;}
 #home .card{width:100%;}
 
-/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
@@ -84,7 +74,6 @@ main{
   margin-top:14px;
 }
 
-/* BUTTONS */
 .btn{
   background:linear-gradient(145deg,#1e2c56,#2d4fa0);
   padding:12px;
@@ -96,7 +85,6 @@ main{
 }
 .btn:hover{transform:translateY(-3px);}
 
-/* FEEDBACK BUTTON */
 .primary{
   margin-top:14px;
   background:#4f8cff;
@@ -110,7 +98,6 @@ main{
 }
 .primary:hover{opacity:0.9;transform:translateY(-2px);}
 
-/* FOOTER */
 footer{
   flex-shrink:0;
   text-align:center;
@@ -130,7 +117,7 @@ footer{
 
 <nav id="mobileMenu" class="menu">
   <a onclick="showPage('home')">Home</a>
-  <a onclick="showPage('pyqp')">PYQP</a>
+  <a onclick="showPage('pyqp')">Previous Year Question Papers</a>
   <a onclick="showPage('important')">Important Questions</a>
   <a onclick="showPage('materials')">Materials</a>
   <a onclick="showPage('formulas')">Formulas</a>
@@ -144,21 +131,10 @@ footer{
   <div class="card">
    <h1>Diploma CSE Study Portal</h1>
 
-<p style="margin-top:10px;">
-A simple, exam-focused platform for Diploma CSE students.
-</p>
-
-<p style="margin-top:10px;">
-This website is designed to help students prepare effectively for Mid exams and Semester exams.
-</p>
-
-<p style="margin-top:10px;">
-Content is organized subject-wise and unit-wise to save time and reduce confusion during exam preparation.
-</p>
-
-<p style="margin-top:10px;">
-The goal is to keep learning simple, focused, and stress-free.
-</p>
+<p style="margin-top:10px;">A simple, exam-focused platform for Diploma CSE students.</p>
+<p style="margin-top:10px;">Helps prepare effectively for Mid exams and Semester exams.</p>
+<p style="margin-top:10px;">All content is organized subject-wise and unit-wise.</p>
+<p style="margin-top:10px;">Goal: simple, focused and stress-free learning.</p>
 
 <button class="primary" 
 onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScD-LCTUAytYHzuk0n2USL-IdwqjRDIodbGB6KgIkNUWlRAww/viewform?usp=dialog','_blank')">
@@ -168,11 +144,10 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- PYQP -->
+<!-- PYQP main -->
 <section id="pyqp" class="page">
   <div class="card">
     <h2>Previous Year Question Papers</h2>
-    <p>Select a subject:</p>
     <div class="grid">
       <div class="btn" onclick="openUnit('PYQP','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('PYQP','Physics')">Physics</div>
@@ -183,7 +158,6 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- EXAMS (MID/SEM) -->
 <section id="pyqpExams" class="page">
   <div class="card">
     <h2 id="pyqpTitle">Select Exam</h2>
@@ -195,26 +169,23 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- IMPORTANT -->
+<!-- Important / Materials / Formulas / Quiz share same unit viewer -->
 <section id="important" class="page">
   <div class="card">
     <h2>Important Questions</h2>
-    <p>Choose subject:</p>
     <div class="grid">
-      <div class="btn" onclick="openUnit('Important Questions','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('Important Questions','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('Important Questions','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('Important Questions','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('Important Questions','Web Technology')">Web Technology</div>
+      <div class="btn" onclick="openUnit('Important','Maths')">Maths</div>
+      <div class="btn" onclick="openUnit('Important','Physics')">Physics</div>
+      <div class="btn" onclick="openUnit('Important','Chemistry')">Chemistry</div>
+      <div class="btn" onclick="openUnit('Important','Programming in C')">Programming in C</div>
+      <div class="btn" onclick="openUnit('Important','Web Technology')">Web Technology</div>
     </div>
   </div>
 </section>
 
-<!-- MATERIALS -->
 <section id="materials" class="page">
   <div class="card">
     <h2>Materials</h2>
-    <p>Subject list:</p>
     <div class="grid">
       <div class="btn" onclick="openUnit('Materials','Maths')">Maths</div>
       <div class="btn" onclick="openUnit('Materials','Physics')">Physics</div>
@@ -225,7 +196,6 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- FORMULAS -->
 <section id="formulas" class="page">
   <div class="card">
     <h2>Formulas</h2>
@@ -237,35 +207,34 @@ Report a Problem / Suggest Feature
   </div>
 </section>
 
-<!-- QUIZ -->
 <section id="quiz" class="page">
   <div class="card">
     <h2>Quiz</h2>
-    <p>Unit-wise practice:</p>
+    <p>Coming soon — unit-wise practice quizzes.</p>
+  </div>
+</section>
+
+<!-- Unit selector -->
+<section id="unitPage" class="page">
+  <div class="card">
+    <h2 id="unitTitle">Select Unit</h2>
     <div class="grid">
-      <div class="btn" onclick="openUnit('Quiz','Maths')">Maths</div>
-      <div class="btn" onclick="openUnit('Quiz','Physics')">Physics</div>
-      <div class="btn" onclick="openUnit('Quiz','Chemistry')">Chemistry</div>
-      <div class="btn" onclick="openUnit('Quiz','Programming in C')">Programming in C</div>
-      <div class="btn" onclick="openUnit('Quiz','Web Technology')">Web Technology</div>
+      <div class="btn" onclick="openUnitPdf(1)">Unit 1</div>
+      <div class="btn" onclick="openUnitPdf(2)">Unit 2</div>
+      <div class="btn" onclick="openUnitPdf(3)">Unit 3</div>
+      <div class="btn" onclick="openUnitPdf(4)">Unit 4</div>
+      <div class="btn" onclick="openUnitPdf(5)">Unit 5</div>
     </div>
   </div>
 </section>
 
-<!-- UNIT PAGE -->
-<section id="unitPage" class="page">
+<!-- UNIVERSAL PDF VIEWER -->
+<section id="pdfViewer" class="page">
   <div class="card">
-    <h2 id="unitTitle">Unit Selection</h2>
-    <p>Select unit:</p>
-
-    <div class="grid">
-      <div class="btn">Unit 1</div>
-      <div class="btn">Unit 2</div>
-      <div class="btn">Unit 3</div>
-      <div class="btn">Unit 4</div>
-      <div class="btn">Unit 5</div>
-      <div class="btn">Unit 6</div>
-    </div>
+    <button class="btn" onclick="history.back()">← Back</button>
+    <h3 id="pdfTitle" style="margin-top:10px;"></h3>
+    <iframe id="pdfFrame"
+      style="width:100%;height:78vh;margin-top:10px;border-radius:14px;border:none;"></iframe>
   </div>
 </section>
 
@@ -274,64 +243,32 @@ Report a Problem / Suggest Feature
 </main>
 
 <script>
-// DATA
 const papers = {
-  "Maths": {
-    mid1:"pdfs/maths-mid1.pdf",
-    mid2:"pdfs/maths-mid2.pdf",
-    sem:"pdfs/maths-sem.pdf"
-  },
-  "Physics": {
-    mid1:"pdfs/physics-mid1.pdf",
-    mid2:"pdfs/physics-mid2.pdf",
-    sem:"pdfs/physics-sem.pdf"
-  },
-  "Chemistry": {
-    mid1:"pdfs/chemistry-mid1.pdf",
-    mid2:"pdfs/chemistry-mid2.pdf",
-    sem:"pdfs/chemistry-sem.pdf"
-  },
-  "Programming in C": {
-    mid1:"pdfs/c-mid1.pdf",
-    mid2:"pdfs/c-mid2.pdf",
-    sem:"pdfs/c-sem.pdf"
-  },
-  "Web Technology": {
-    mid1:"pdfs/wt-mid1.pdf",
-    mid2:"pdfs/wt-mid2.pdf",
-    sem:"pdfs/wt-sem.pdf"
-  }
+  "Maths": { mid1:"pdfs/maths-mid1.pdf", mid2:"pdfs/maths-mid2.pdf", sem:"pdfs/maths-sem.pdf"},
+  "Physics": { mid1:"pdfs/physics-mid1.pdf", mid2:"pdfs/physics-mid2.pdf", sem:"pdfs/physics-sem.pdf"},
+  "Chemistry": { mid1:"pdfs/chemistry-mid1.pdf", mid2:"pdfs/chemistry-mid2.pdf", sem:"pdfs/chemistry-sem.pdf"},
+  "Programming in C": { mid1:"pdfs/c-mid1.pdf", mid2:"pdfs/c-mid2.pdf", sem:"pdfs/c-sem.pdf"},
+  "Web Technology": { mid1:"pdfs/wt-mid1.pdf", mid2:"pdfs/wt-mid2.pdf", sem:"pdfs/wt-sem.pdf"}
 };
 
-let current="home";
-let currentSubject="";
+let current="home", currentSubject="", currentType="";
 
-function toggleMenu(){
-  const m=document.getElementById("mobileMenu");
-  m.style.display=(m.style.display==="flex")?"none":"flex";
-}
+function toggleMenu(){ const m=document.getElementById("mobileMenu"); m.style.display=(m.style.display==="flex")?"none":"flex"; }
 
 function showPage(id){
   if(id===current) return;
-
-  const prev=document.getElementById(current);
-  const next=document.getElementById(id);
-
-  prev?.classList.remove("show");
-  prev?.classList.add("hide");
+  const prev=document.getElementById(current), next=document.getElementById(id);
+  prev?.classList.remove("show"); prev?.classList.add("hide");
   setTimeout(()=>{if(prev) prev.style.display="none";},260);
-
-  next.style.display="block";
-  next.classList.remove("hide");
-  next.classList.add("show");
-
-  current=id;
-  toggleMenu();
+  next.style.display="block"; next.classList.remove("hide"); next.classList.add("show");
+  current=id; toggleMenu();
 }
 
 function openUnit(type,subject){
+  currentType = type;
+  currentSubject = subject;
+
   if(type==="PYQP"){
-    currentSubject = subject;
     document.getElementById("pyqpTitle").innerText =
       "Previous Year Question Papers — " + subject;
     showPage("pyqpExams");
@@ -340,21 +277,27 @@ function openUnit(type,subject){
 
   document.getElementById("unitTitle").innerText =
     type + " — " + subject;
-
   showPage("unitPage");
 }
 
 function openPaper(kind){
-  const data = papers[currentSubject];
-  if(!data) return;
+  const frame=document.getElementById("pdfFrame");
+  frame.src = papers[currentSubject][kind];
+  document.getElementById("pdfTitle").innerText =
+    currentSubject + " — " + kind.toUpperCase();
+  showPage("pdfViewer");
+}
 
-  const link = data[kind];
+function openUnitPdf(unit){
+  const frame=document.getElementById("pdfFrame");
+  const path = "pdfs/materials/" +
+    currentSubject.toLowerCase().replaceAll(' ','-') +
+    "-unit" + unit + ".pdf";
 
-  if(window.innerWidth > 768){
-    window.open(link,"_blank");
-  } else {
-    window.open(link,"_blank");
-  }
+  frame.src = path;
+  document.getElementById("pdfTitle").innerText =
+    currentType + " — " + currentSubject + " (Unit " + unit + ")";
+  showPage("pdfViewer");
 }
 </script>
 
